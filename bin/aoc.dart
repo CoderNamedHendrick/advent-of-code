@@ -1,26 +1,25 @@
+import 'dart:io';
+
 import 'package:args/args.dart';
-import 'aoc_1.dart';
+import 'solutions.dart';
 
 const String version = '0.0.1';
 
 ArgParser buildParser() {
   return ArgParser()
-    ..addFlag(
-      'help',
-      abbr: 'h',
-      negatable: false,
-      help: 'Print this usage information.',
+    ..addOption(
+      'year',
+      abbr: 'y',
+      help: 'Year selection',
+      valueHelp: 'value between 2015-2023',
+      mandatory: true,
     )
-    ..addFlag(
-      'verbose',
-      abbr: 'v',
-      negatable: false,
-      help: 'Show additional command output.',
-    )
-    ..addFlag(
-      'version',
-      negatable: false,
-      help: 'Print the tool version.',
+    ..addOption(
+      'day',
+      abbr: 'd',
+      help: 'Day selection',
+      valueHelp: 'value between 1-25',
+      mandatory: true,
     );
 }
 
@@ -29,10 +28,30 @@ void printUsage(ArgParser argParser) {
   print(argParser.usage);
 }
 
-void main(List<String> arguments) {
+void main(List<String> arguments) async {
+  final argParser = buildParser();
+
   try {
-    dayOneTaskOne();
-  } on FormatException catch (_) {
+    final results = argParser.parse(arguments);
+    final (year, day) = (
+      int.parse(results['year'] as String),
+      int.parse(results['day'] as String),
+    );
+
+    final solutionData = solutions[year]?[day];
+    if (solutionData == null) {
+      print('Solution data not found for $year, day $day');
+    }
+
+    final strInput = await File(solutionData!.dataPath).readAsString();
+    final first = await solutionData.solution(strInput, 0);
+    final second = await solutionData.solution(strInput, 1);
+
+    print('$year day $day first: $first');
+    print('$year day $day second: $second');
+  } catch (e) {
     // Print usage information if an invalid argument was provided.
+    print(e);
+    printUsage(argParser);
   }
 }

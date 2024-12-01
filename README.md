@@ -1,3 +1,3 @@
-## Advent of code 2024
+## Advent of code 
 
-Just my attempts at advent of code 2024
+Just my attempts at advent of code 
