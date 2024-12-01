@@ -1,1 +1,3 @@
-A sample command-line application providing basic argument parsing with an entrypoint in `bin/`.
+## Advent of code 2024
+
+Just my attempts at advent of code 2024
