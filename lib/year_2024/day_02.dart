@@ -57,38 +57,17 @@ final class Aoc2024Day2 extends Solution<int, int, List<List<int>>> {
   @protected
   bool isReportSafe(List<int> report) {
     final isDecreasing = isReportDecreasing(report);
-    bool? isReportSafe;
+    for (int i = 1; i < report.length; i++) {
+      final result = (report[i] - report[i - 1]);
+      final didAscensionOrderBreak =
+          isDecreasing ? !result.isNegative : result.isNegative;
+      if (didAscensionOrderBreak || result == 0) return false;
 
-    if (isDecreasing) {
-      for (int i = 1; i < report.length; i++) {
-        if (isReportSafe == false) {
-          break; // quit the loop if marked unsafe
-        }
-
-        final result = (report[i] - report[i - 1]);
-        if (!result.isNegative || result == 0) {
-          isReportSafe = false;
-          break;
-        }
-
-        isReportSafe = result.abs() <= _reportTolerance;
-      }
-    } else {
-      for (int i = 1; i < report.length; i++) {
-        if (isReportSafe == false) {
-          break; // quit the loop if marked unsafe
-        }
-
-        final result = (report[i] - report[i - 1]);
-        if (result.isNegative || result == 0) {
-          isReportSafe = false;
-          break;
-        }
-        isReportSafe = result <= _reportTolerance;
-      }
+      final isSafe = (isDecreasing ? result.abs() : result) <= _reportTolerance;
+      if (!isSafe) return false;
     }
 
-    return isReportSafe ?? false;
+    return true;
   }
 
   @visibleForTesting
