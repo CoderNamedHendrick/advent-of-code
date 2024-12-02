@@ -75,5 +75,38 @@ void main() {
       final safeReports = aoc.call(input, 0); // first day task
       expect(safeReports, 2, reason: 'number of safe reports in sample');
     });
+
+    test('check if report is safe with problem dampener', () {
+      var report = [1, 3, 2, 4, 5];
+
+      expect(
+        aoc.isReportSafeWithDampener(report),
+        true,
+        reason: 'with problem dampener report should be safe',
+      );
+
+      report = [8, 6, 4, 4, 1];
+
+      expect(
+        aoc.isReportSafeWithDampener(report),
+        true,
+        reason: 'with problem dampener report should be safe',
+      );
+    });
+
+    test('check how many safe reports exist in sample with problem dampener',
+        () {
+      final input = '''
+7 6 4 2 1
+1 2 7 8 9
+9 7 6 2 1
+1 3 2 4 5
+8 6 4 4 1
+1 3 6 7 9
+''';
+
+      final safeReports = aoc.call(input, 1); // first day task
+      expect(safeReports, 4, reason: 'number of safe reports in sample');
+    });
   });
 }

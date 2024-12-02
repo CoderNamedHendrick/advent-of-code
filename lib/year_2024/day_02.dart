@@ -38,7 +38,13 @@ final class Aoc2024Day2 extends Solution<int, int, List<List<int>>> {
 
   @override
   FutureOr<int> second(List<List<int>> input) {
-    return 0;
+    int safeReports = 0;
+
+    for (final report in input) {
+      if (isReportSafeWithDampener(report)) safeReports += 1;
+    }
+
+    return safeReports;
   }
 
   @visibleForTesting
@@ -83,5 +89,19 @@ final class Aoc2024Day2 extends Solution<int, int, List<List<int>>> {
     }
 
     return isReportSafe ?? false;
+  }
+
+  @visibleForTesting
+  @protected
+  bool isReportSafeWithDampener(List<int> report) {
+    if (isReportSafe(report)) return true;
+
+    final list = report.toList();
+    for (int i = 0; i < list.length; i++) {
+      final newReport = list.toList()..removeAt(i);
+      if (isReportSafe(newReport)) return true;
+    }
+
+    return false;
   }
 }
