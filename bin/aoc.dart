@@ -11,7 +11,7 @@ ArgParser buildParser() {
       'year',
       abbr: 'y',
       help: 'Year selection',
-      valueHelp: 'value between 2015-2023',
+      valueHelp: 'value between 2015-2024',
       mandatory: true,
     )
     ..addOption(
