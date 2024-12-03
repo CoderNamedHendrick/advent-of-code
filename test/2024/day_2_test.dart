@@ -14,7 +14,7 @@ void main() {
 1 3 6 7 9
 ''';
 
-      final reports = aoc.inputParser(input);
+      final reports = aoc.primaryInputParser(input);
 
       expect(reports.length, 6, reason: 'there are 6 reports in test input');
       for (final report in reports) {

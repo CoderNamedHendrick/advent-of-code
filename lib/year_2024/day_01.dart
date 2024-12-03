@@ -16,7 +16,7 @@ final class Aoc2024Day1 extends Solution<int, int, (List<int>, List<int>)> {
   }
 
   @override
-  (List<int>, List<int>) inputParser(String str) {
+  (List<int>, List<int>) primaryInputParser(String str) {
     final input = str.trim().split('\n');
 
     final a = List.filled(input.length, 0);
