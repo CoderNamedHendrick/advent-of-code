@@ -61,9 +61,15 @@ void main() {
           "don't()'when()(;'?how()]'mul(978,210)#&when()how()):%?^]mul(395,664)'mul(912,244){),@:?'who()";
 
       final validInputs = aoc.secondaryInputParser(input);
-      print(validInputs);
-
       expect(validInputs.length, 0, reason: 'there are no valid inputs');
+    });
+
+    test("valid group with do instruction test", () {
+      final input =
+          "do()'when()(;'?how()]'mul(978,210)#&when()how()):%?^]mul(395,664)'mul(912,244){),@:?'who()";
+
+      final validInputs = aoc.secondaryInputParser(input);
+      expect(validInputs.length, 3, reason: 'there are 3 valid inputs');
     });
 
     test('test case for several corresponding dont', () {
@@ -71,7 +77,6 @@ void main() {
           r"~%mul(944,505)why()?$*?from(953,19)do()mul(260,781)),don't()@from(20,864):^#}from()mul(904,64)}>mul(32,251) ]-'%+%/mul(537,614)why()what()select()^&where()what(761,969)<mul(394,510)how()who()what()>mul(666,129)when()]}($>when()-<mul(906,339),,how()~mul(172,337):-what()mul(961,996)where()%$}'/don't()who()~*@?)(,mul(200,564)'?%]#~!who()mul(446,6)&*^{mul(206,389)[mul(668,856)>@;don't()@*from()from()how() '#mul(671,116)where(),what()&]+from())$*mul(725,537))who()<*<+from()where()mul(209,705)/!!#mul(631,654);)>*#/}mul-how():}{]from()<mul(410,570)>^%where(){'<;who() mul(916,187),mul(627,593),>)+?why()<+?mul(772,583);;why()@mul(676,125)from()(where()where()what()mul(315,458)&'%%?$mul(967,658)from()mul(639,853)}>who()mul(569,506) what()what()what()'}<]%mul(674,667)[+how()where()select()&why()>&'mul(619,606)who()who(){from()<~[?/mul(257,454)(*&]@[ ]+don't()%:%why()+>&#(-mul(524,120)},mul(68,702)!mul(734,878):where(),#mul(363,999)!$~#&from()^<*how()mul(583,385)mul(609,453)who()mul(198,289)mul(456,335))select()when():}'mul(152,156)]&who()?~what():'mul(595,969)from();why()when()*+#why()from()!don't()'when()(;'?how()]'mul(978,210)#&when()how()):%?^]mul(395,664)'mul(912,244){),@:?'who();";
 
       final validInputs = aoc.secondaryInputParser(input);
-      print(validInputs);
       expect(
         validInputs.length,
         2,

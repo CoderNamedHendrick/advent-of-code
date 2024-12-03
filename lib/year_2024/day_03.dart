@@ -12,12 +12,10 @@ final class Aoc2024Day3 extends Solution<num, num, List<(num, num)>> {
         .toInt();
   }
 
-  static final _findMulOperationRegex = RegExp(r'mul\(\d{1,3},\d{1,3}\)');
-
   @override
   List<(num, num)> primaryInputParser(String str) {
     List<(num, num)> validInputs = [];
-    final matches = _findMulOperationRegex.allMatches(str.trim());
+    final matches = RegExp(r'mul\(\d{1,3},\d{1,3}\)').allMatches(str.trim());
 
     for (final match in matches) {
       final inputs =
@@ -30,7 +28,7 @@ final class Aoc2024Day3 extends Solution<num, num, List<(num, num)>> {
 
   @override
   List<(num, num)> secondaryInputParser(String str) {
-    final trimmedInput = _trimInputForDoAndDontRule(str);
+    final trimmedInput = _trimInputForRule(str);
     return super.secondaryInputParser(trimmedInput);
   }
 
@@ -41,7 +39,7 @@ final class Aoc2024Day3 extends Solution<num, num, List<(num, num)>> {
         .toInt();
   }
 
-  String _trimInputForDoAndDontRule(String input) {
+  String _trimInputForRule(String input) {
     final negativePositiveMatches =
         RegExp("(?<negative>don't())|(?<positive>do())").allMatches(input);
 
@@ -49,26 +47,19 @@ final class Aoc2024Day3 extends Solution<num, num, List<(num, num)>> {
 
     (int? start, int? end)? removeRange;
     for (final m in negativePositiveMatches) {
-      if (m.namedGroup('negative') != null && removeRange?.$1 != null) {
-        removeRange = (removeRange!.$1, m.start);
-        final before = input.substring(0, removeRange.$1);
-        final after = _trimInputForDoAndDontRule(
-            input.substring(removeRange.$2 ?? removeRange.$1!, input.length));
-        return '$before$after';
-      }
-
       if (m.namedGroup('negative') != null) {
+        if (removeRange?.$1 != null) {
+          removeRange = (removeRange!.$1, m.start);
+          return _newTrimInput(removeRange, input);
+        }
+
         removeRange = (m.start, null);
         continue;
       }
 
       if (m.namedGroup('positive') != null && removeRange?.$1 != null) {
         removeRange = (removeRange!.$1, m.end);
-
-        final before = input.substring(0, removeRange.$1);
-        final after = _trimInputForDoAndDontRule(
-            input.substring(removeRange.$2 ?? removeRange.$1!, input.length));
-        return '$before$after';
+        return _newTrimInput(removeRange, input);
       }
     }
 
@@ -76,5 +67,10 @@ final class Aoc2024Day3 extends Solution<num, num, List<(num, num)>> {
     if (removeRange?.$1 != null && removeRange?.$2 == null) return '';
 
     return input;
+  }
+
+  String _newTrimInput((int? start, int? end) range, String input) {
+    return input.substring(0, range.$1!) +
+        _trimInputForRule(input.substring(range.$2!, input.length));
   }
 }
