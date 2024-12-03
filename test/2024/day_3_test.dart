@@ -4,24 +4,6 @@ import 'package:test/test.dart';
 void main() {
   final aoc = Aoc2024Day3();
   group('Day 3 test suite', () {
-    test('scan for muls in string', () {
-      final input =
-          'xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))';
-
-      int mulOccurs = 0;
-      for (int i = 0; i < input.length; i++) {
-        if (input[i] == 'm') {
-          final collect = [input[i], input[i + 1], input[i + 2]].join();
-          if (collect == 'mul') {
-            mulOccurs += 1;
-            i = i + 2;
-          }
-        }
-      }
-
-      expect(mulOccurs, 6, reason: 'there are 6 mul keyword occurrences');
-    });
-
     test('scan for valid muls in string', () {
       final input =
           'xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))';
